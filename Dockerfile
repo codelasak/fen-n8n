@@ -1,5 +1,5 @@
 # Start from the official n8n Docker image
-FROM n8nio/n8n
+FROM n8nio/n8n:1.88.0
 
 # Switch to the root user to install system packages
 USER root
