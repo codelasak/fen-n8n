@@ -6,11 +6,16 @@
 
   # Update package list and install dependencies
   RUN apk update && apk add --no-cache \
+      ffmpeg \
       python3 \
       py3-pip \
       chromium \
       chromium-chromedriver \
       xvfb \
+      gcc \
+      python3-dev \
+      musl-dev \
+      curl \
       && rm -rf /var/cache/apk/*
 
   # Install yt-dlp with system packages override
