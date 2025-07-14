@@ -23,7 +23,7 @@ FROM n8nio/n8n:1.101.2
   RUN pip3 install --upgrade yt-dlp --break-system-packages
 
   # Install Node.js Playwright package globally for n8n access
-  RUN npm install -g playwright
+  RUN npx install -g playwright
 
   # Install Playwright browsers
   RUN npx playwright install chromium
