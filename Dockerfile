@@ -1,4 +1,4 @@
- FROM n8nio/n8n:1.101.2
+FROM n8nio/n8n:1.101.2
 
   # Switch to the root user to install system packages
   USER root
@@ -19,14 +19,14 @@
       npm \
       && rm -rf /var/cache/apk/*
 
-  # Install yt-dlp and Playwright with system packages override
-  RUN pip3 install --upgrade yt-dlp playwright --break-system-packages
-
-  # Install Playwright browsers and dependencies
-  RUN playwright install chromium --with-deps
+  # Install yt-dlp only (skip playwright for now)
+  RUN pip3 install --upgrade yt-dlp --break-system-packages
 
   # Install Node.js Playwright package globally for n8n access
   RUN npm install -g playwright
+
+  # Install Playwright browsers
+  RUN npx playwright install chromium
 
   # Create a symlink for chrome to make it available for yt-dlp
   RUN ln -sf /usr/bin/chromium-browser /usr/bin/google-chrome
@@ -35,14 +35,13 @@
   ENV CHROME_BIN=/usr/bin/chromium-browser
   ENV CHROME_PATH=/usr/bin/chromium-browser
   ENV DISPLAY=:99
-  ENV PLAYWRIGHT_BROWSERS_PATH=/ms-playwright
-  ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+  ENV PLAYWRIGHT_BROWSERS_PATH=/root/.cache/ms-playwright
 
   # Create footage directory for downloads
   RUN mkdir -p /home/node/footage && chown -R node:node /home/node/footage
 
   # Create Playwright cache directory with proper permissions
-  RUN mkdir -p /ms-playwright && chown -R node:node /ms-playwright
+  RUN mkdir -p /root/.cache/ms-playwright && chown -R node:node /root/.cache/ms-playwright
 
   # Switch back to the non-root 'node' user for security
   USER node
