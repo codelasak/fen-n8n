@@ -22,12 +22,6 @@ FROM n8nio/n8n:1.101.2
   # Install yt-dlp only (skip playwright for now)
   RUN pip3 install --upgrade yt-dlp --break-system-packages
 
-  # Install Node.js Playwright package globally for n8n access
-  RUN npx install -g playwright
-
-  # Install Playwright browsers
-  RUN npx playwright install chromium
-
   # Create a symlink for chrome to make it available for yt-dlp
   RUN ln -sf /usr/bin/chromium-browser /usr/bin/google-chrome
 
