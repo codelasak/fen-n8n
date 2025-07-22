@@ -34,6 +34,7 @@ services:
       N8N_PORT: 5678
       N8N_PROTOCOL: https
       N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY}
+      N8N_TRUST_PROXY: "true"
     depends_on:
       postgresql:
         condition: service_healthy
